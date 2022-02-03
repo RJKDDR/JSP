@@ -1,10 +1,10 @@
-package co.micol.prj.member.service;
+package co.micol.prj.notice.service;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import co.micol.prj.member.vo.NoticeVO;
+import co.micol.prj.notice.vo.NoticeVO;
 
 public interface NoticeMapper {
 	List<NoticeVO> noticeSelectList();

@@ -16,6 +16,10 @@ import co.micol.prj.command.Login;
 import co.micol.prj.command.LoginForm;
 import co.micol.prj.command.LoginOut;
 import co.micol.prj.command.MainCommand;
+import co.micol.prj.command.NoticeList;
+import co.micol.prj.command.NoticeSelect;
+import co.micol.prj.command.NoticeWrite;
+import co.micol.prj.command.NoticeWriteForm;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
@@ -30,8 +34,14 @@ public class FrontController extends HttpServlet {
 		//명령 그룹
 		map.put("/main.do", new MainCommand()); //홈페이지
 		map.put("/loginForm.do", new LoginForm()); //로그인폼
-		map.put("/login.do", new Login());
-		map.put("/loginOut.do", new LoginOut());
+		map.put("/login.do", new Login()); //로그인
+		map.put("/loginOut.do", new LoginOut()); //로그아웃
+		map.put("/noticeList.do", new NoticeList()); //공지사항 리스트
+		map.put("/noticeSelect.do", new NoticeSelect());//공지사항 세부내용보기
+		map.put("/noticeWriteForm.do", new NoticeWriteForm());//글쓰기 폼
+		map.put("/noticeWrite.do", new NoticeWrite());//글등록
+		
+		
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -2,7 +2,7 @@
 
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-   <properties resource="db.properties" />
+   <properties resource="/db.properties" />
    <settings>
       <setting name="jdbcTypeForNull" value="NULL" />
    </settings>
@@ -19,7 +19,8 @@
       </environment>
    </environments>
    <mappers>
-      <mapper
-         resource="co/micol/prj/member/service/member-map.xml" />
+      <mapper resource="co/micol/prj/member/service/member-map.xml" />
+      <mapper resource="co/micol/prj/notice/service/notice-map.xml"/>
+  
    </mappers>
 </configuration>

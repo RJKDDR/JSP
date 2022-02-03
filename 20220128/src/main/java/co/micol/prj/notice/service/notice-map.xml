@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.micol.prj.notice.service.NoticeMapper">
+
+	  <!-- db의 컬럼명과 java의 vo필드명이 다르기 때문에 그냥 resultType은 못찾음 -->
+	  
+   <resultMap type="co.micol.prj.notice.vo.NoticeVO" id="noticeMap">
+		<id property="noticeId" column="notice_id" />
+		<result property="noticeWriter" column="notice_writer" />
+		<result property="noticeTitle" column="notice_title" />
+		<result property="noticeSubject" column="notice_subject" />
+		<result property="noticeDate" column="notice_date" />
+		<result property="noticeHit" column="notice_hit" />
+	</resultMap>
+
+	<select id="noticeSelectList" resultType="co.micol.prj.notice.vo.NoticeVO">
+		SELECT
+		 NOTICE_ID AS NOTICEID,
+		 NOTICE_WRITER AS NOTICEWRITER,
+		 NOTICE_TITLE AS NOTICETITLE,
+		 NOTICE_SUBJECT AS NOTICESUBJECT,
+		 NOTICE_DATE AS NOTICEDATE,
+		 NOTICE_HIT AS NOTICEHIT
+		FROM NOTICE ORDER BY NOTICE_ID DESC
+
+	</select>
+	
+	<select id="noticeSelect" resultMap="noticeMap">
+	SELECT * FROM NOTICE WHERE NOTICE_ID = #{noticeId}
+	</select>
+	
+	<insert id="noticeInsert" parameterType="co.micol.prj.notice.vo.NoticeVO">
+	<selectKey keyProperty="noticeId" resultType="int" order="BEFORE">
+	 SELECT MAX(NOTICE_ID) +1 AS NOTICEID FROM NOTICE
+	</selectKey>
+	INSERT INTO NOTICE(NOTICE_ID, NOTICE_WRITER, NOTICE_TITLE, NOTICE_SUBJECT, NOTICE_DATE)
+	VALUES(#{noticeId}, #{noticeWriter}, #{noticeTitle}, #{noticeSubject}, #{noticeDate})
+	</insert>
+	
+	<delete id="noticeDelete" parameterType="co.micol.prj.notice.vo.NoticeVO">
+	DELETE FROM NOTICE WHERE NOTICE_ID = #{noticeId}
+	</delete>
+	
+	<update id="noticeUpdate">
+	UPDATE NOTICE
+	<if test = "notieceWriter != null"> set notice_writer = #{noticeWriter}</if>
+	<if test = "notieceTitle != null"> set notice_title = #{noticeTitle}</if>
+	<if test = "notieceSubject != null"> set notice_subject = #{noticeSubject}</if>
+	<if test = "notieceDate != null"> set notice_date = #{noticeDate}</if>
+	WHERE NOTICE_ID = #{noticeId}
+	</update>
+	
+	<update id="noticeHitUpdate" parameterType="int">
+	UPDATE NOTICE SET NOTICE_HIT = NOTICE_HIT +1 WHERE NOTICE_ID = #{id}
+	</update>
+
+	<select id="noticeSearch" resultMap="noticeMap">
+	SELECT * FROM NOTICE
+	WHERE
+	<if test="key == '전체'">1 - 1 </if>
+	<if test="key == '제목'">	NOTICE_TITLE LIKE '%'||#str#||'%' </if>
+	<if test="key == '작성자'">NOTICE_WRITER LIKE '%'||#str#||'%' </if>
+	<if test="key == '내용'">NOTICE_SUBJECT LIKE '%'||#str#||'%' </if>
+	</select>
+</mapper>

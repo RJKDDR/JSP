@@ -1,4 +1,4 @@
-package co.micol.prj.member.vo;
+package co.micol.prj.notice.vo;
 import java.sql.Date;
 
 import lombok.Getter;

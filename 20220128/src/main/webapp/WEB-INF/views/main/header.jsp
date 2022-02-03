@@ -23,7 +23,7 @@
 				<c:if test="${not empty id }">
 					<li><a href="loginOut.do">LogOut</a></li>
 				</c:if>
-				<li><a href="#">Contact</a></li>
+				<li><a href="noticeList.do">Notice</a></li>
 				<li><a href="#">About</a></li>
 				<li><a href="#">Product</a></li>
 				<li><a href="#">Service</a></li>
